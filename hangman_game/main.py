@@ -1,13 +1,13 @@
 """
-Proyecto Básico de Python (El Ahorcado).
 Basado en el proyecto de: Kylie Ying (@kylieyying). 
+Proyecto Básico de Python (El Ahorcado).
 """
 import random
 import string
 """Importacion del archivo de pablas """
 from palabras import palabras
+from ahorcado_diagramas import vidas_diccionario_visual
 #from ahorcado_diagramas import vidas_diccionario_visual
-
 
 def obtener_palabra_válida(palabras):
     palabra = random.choice(palabras)  # seleccionar una palabra al azar de la lista
@@ -41,8 +41,14 @@ def run():
         print(f"Te quedan {vidas} vidas y has usado estas letras: {' '.join(letras_adivinadas)}")
 
         # Estado actual de la palabra que el jugador debe adivinar (por ejemplo:  H - L A)
-        palabra_lista = [letra if letra in letras_adivinadas else '-' for letra in palabra]
-        #print(vidas_diccionario_visual[vidas]) # mostrar estado del ahorcado.
+        palabra_lista = []
+        for letra in palabra:
+            if letra in letras_adivinadas:
+                palabra_lista.append(letra)
+            else:
+                palabra_lista.append('_')
+        #palabra_lista = [letra if letra in letras_adivinadas else '-' for letra in palabra]
+        print(vidas_diccionario_visual[vidas]) # mostrar estado del ahorcado.
         print(f"Palabra: {' '.join(palabra_lista)}") # mostrar las letras separadas por un espacio.
 
         # El usuario escoge una letra nueva
@@ -71,7 +77,7 @@ def run():
     # El juego llega a esta línea cuando se agotan las vidas del jugador 
     # o cuando se adivinan todas las letras de la palabra.
     if vidas == 0:
-        #print(vidas_diccionario_visual[vidas])
+        print(vidas_diccionario_visual[vidas])
         print(f"¡Ahorcado! Perdiste. Lo lamento mucho. La palabra era: {palabra}")
     else:
         print(f'¡Excelente! ¡Adivinaste la palabra {palabra}!')
